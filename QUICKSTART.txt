@@ -1,0 +1,66 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║         SUPPORT SESSION REPORT AUTO-GENERATOR - QUICK START          ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+📋 HOW TO USE (EASIEST METHOD):
+
+  1. Drag your CSV file onto: process_support_report.bat
+  2. Wait a few seconds while it processes
+  3. Your report opens automatically in your browser!
+
+That's it! The script automatically:
+  ✓ Removes unnecessary columns (A, B, H, I, J, L, N, O, S, T, U, V)
+  ✓ Generates a beautiful HTML report with charts
+  ✓ Opens it in your browser
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 FILES IN THIS FOLDER:
+
+  process_support_report.bat  ← Drag your CSV here!
+  auto_generate_report.py     ← Main Python script
+  README.md                   ← Detailed documentation
+  QUICKSTART.txt              ← This file
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 WHAT YOU GET:
+
+Your report will include:
+  • Total session count and top performers
+  • Hourly session distribution chart
+  • Staffing recommendations (Peak/Moderate/Quiet)
+  • Representative performance bars
+  • Detailed time-block analysis
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 ADVANCED USAGE (Command Line):
+
+  python auto_generate_report.py "path\to\your\file.csv"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📍 OUTPUT LOCATION:
+
+Reports are saved in the same folder as your CSV file with names like:
+  Daily-Support-Performance-Report-2025-11-07.html
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❓ TROUBLESHOOTING:
+
+Problem: Script doesn't run
+Solution: Make sure Python is installed
+
+Problem: Template not found error
+Solution: Ensure template exists at:
+  C:\Users\Zengar User\OneDrive - Zengar Institute Inc\Documents\Work\
+  Templates\Daily-Support-Performance-Report-[DATE].html
+
+Problem: No data error
+Solution: Check that your CSV has a "Started" column with dates
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+For more information, see README.md
