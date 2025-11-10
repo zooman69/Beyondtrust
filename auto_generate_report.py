@@ -284,6 +284,75 @@ def generate_report(csv_file):
     html = html.replace('let allSessionData = []; // Will be populated by the Python script',
                        f'let allSessionData = {session_data_json};')
 
+    # Geographic distribution analysis
+    ip_addresses = []
+    for session in sessions:
+        ip_str = session.get("Customer's Public IP", "")
+        if ip_str and ':' in ip_str:
+            ip = ip_str.split(':')[0]  # Remove port
+            ip_addresses.append(ip)
+
+    unique_ips = len(set(ip_addresses))
+
+    # Simple region classification based on IP ranges (approximate)
+    regions = {'North America': 0, 'Europe': 0, 'Asia Pacific': 0, 'Other': 0}
+
+    for ip in ip_addresses:
+        first_octet = int(ip.split('.')[0])
+        # Very simplified regional classification
+        if first_octet in range(3, 77) or first_octet in range(140, 200):  # NA ranges (simplified)
+            regions['North America'] += 1
+        elif first_octet in range(77, 96) or first_octet in range(130, 140):  # EU ranges (simplified)
+            regions['Europe'] += 1
+        elif first_octet in range(1, 3) or first_octet in range(118, 130):  # APAC ranges (simplified)
+            regions['Asia Pacific'] += 1
+        else:
+            regions['Other'] += 1
+
+    total_geo_sessions = sum(regions.values())
+    region_count = sum(1 for count in regions.values() if count > 0)
+
+    # Build geographic cards HTML
+    geo_cards_html = ''
+    region_configs = {
+        'North America': {'emoji': '🇺🇸 🇨🇦', 'color': 'var(--indigo)', 'bg': '#eef2ff'},
+        'Europe': {'emoji': '🇪🇺', 'color': 'var(--blue)', 'bg': '#dbeafe'},
+        'Asia Pacific': {'emoji': '🌏', 'color': 'var(--amber)', 'bg': '#fef3c7'}
+    }
+
+    for region, count in regions.items():
+        if count == 0 or region == 'Other':
+            continue
+
+        percentage = (count / total_geo_sessions * 100) if total_geo_sessions > 0 else 0
+        config = region_configs.get(region, {'emoji': '🌐', 'color': 'var(--gray)', 'bg': '#f3f4f6'})
+        bar_width = min(100, percentage)
+
+        geo_cards_html += f'''
+          <div class="geo-card" style="border-color:{config['color']};background:{config['bg']}">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <div style="font-weight:700;font-size:16px;color:{config['color']}">{config['emoji']} {region}</div>
+              <div style="font-size:24px;font-weight:700;color:{config['color']}">{percentage:.1f}%</div>
+            </div>
+            <div style="background:{config['color']};height:8px;border-radius:4px;width:{bar_width}%;margin-bottom:8px"></div>
+            <div style="font-size:28px;font-weight:700;color:{config['color']};margin-bottom:4px">{count}</div>
+            <div style="font-size:13px;color:#64748b">sessions</div>
+          </div>'''
+
+    html = html.replace('<div id="geoRegionsLeft">\n          <!-- North America, Europe, Asia Pacific cards will be populated here -->\n        </div>',
+                       f'<div id="geoRegionsLeft">{geo_cards_html}\n        </div>')
+
+    # Update geographic summary stats
+    html = html.replace('<span class="k" id="uniqueIPs">—</span>', f'<span class="k" id="uniqueIPs">{unique_ips}</span>')
+    html = html.replace('<span id="totalSessionsGeo">—</span>', f'<span id="totalSessionsGeo">{total_geo_sessions}</span>')
+    html = html.replace('<span id="regionCount">—</span>', f'<span id="regionCount">{region_count}</span>')
+
+    # Diversity text
+    uniqueness_rate = (unique_ips / total_geo_sessions * 100) if total_geo_sessions > 0 else 0
+    diversity_text = f'{unique_ips} unique IPs from {total_geo_sessions} sessions ({uniqueness_rate:.1f}% unique rate) demonstrates {"excellent" if uniqueness_rate > 70 else "good" if uniqueness_rate > 50 else "moderate"} customer base diversity'
+    html = html.replace('<span id="diversityText">Geographic diversity analysis pending</span>',
+                       f'<span id="diversityText">{diversity_text}</span>')
+
     # Write output to Downloads folder
     csv_path = Path(csv_file)
     output_file = csv_path.parent / f'Daily-Support-Performance-Report-{report_date_filename}.html'

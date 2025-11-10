@@ -4,7 +4,23 @@ Automatically clean CSV files and generate formatted HTML reports for daily supp
 
 ## Quick Start
 
-### Method 1: Drag and Drop (Easiest)
+### Method 1: Automatic Folder Watcher (Best for Regular Use)
+
+**Set it and forget it!** The folder watcher automatically processes new CSV files as they appear.
+
+1. **Double-click** `start_folder_watcher.bat`
+2. The watcher starts monitoring your Downloads folder
+3. When you download a new support session CSV, it will automatically:
+   - Detect the new file
+   - Clean the CSV (remove unnecessary columns)
+   - Generate the HTML report
+   - Open the report in your browser
+4. Leave it running all day - it will process files as they arrive
+5. Press **Ctrl+C** to stop the watcher
+
+**Perfect for:** Processing multiple reports throughout the day without manual intervention.
+
+### Method 2: Drag and Drop (Quick One-Time Processing)
 
 1. **Drag your CSV file** onto `process_support_report.bat`
 2. The script will automatically:
@@ -13,11 +29,15 @@ Automatically clean CSV files and generate formatted HTML reports for daily supp
    - Open the report in your browser
 3. Done! Your report is ready.
 
-### Method 2: Command Line
+**Perfect for:** Quick processing of a single report file.
+
+### Method 3: Command Line
 
 ```bash
 python auto_generate_report.py "path\to\your\Support-sessions.csv"
 ```
+
+**Perfect for:** Automation scripts or custom workflows.
 
 ## What It Does
 
@@ -46,8 +66,10 @@ Creates a professional HTML report with:
 
 ## Files
 
-- `auto_generate_report.py` - Main Python script
-- `process_support_report.bat` - Drag-and-drop batch file for Windows
+- `auto_generate_report.py` - Main Python script for processing CSV and generating reports
+- `watch_folder.py` - Automatic folder monitoring script
+- `start_folder_watcher.bat` - Launches the folder watcher (double-click to start)
+- `process_support_report.bat` - Drag-and-drop batch file for one-time processing
 - `README.md` - This file
 
 ## Requirements
@@ -75,10 +97,14 @@ Daily-Support-Performance-Report-2025-11-07.html
 
 ## Tips
 
+- **Folder Watcher**: The folder watcher only processes NEW files that arrive after it starts. Existing CSV files in the folder are ignored.
+- **File Detection**: The watcher looks for files with "support" and "session" in the filename, or files starting with "Support-sessions-"
+- **Auto-Open**: Reports automatically open in your default browser when generated
 - The script automatically detects the date from the CSV data
 - Reports are color-coded: Red (Peak), Gray (Moderate), Blue (Quiet)
 - Use the "Print PDF" button in the report to save as PDF
 - Use the "Download HTML" button to save a standalone copy
+- **Representative Filter**: Use the dropdown menu in the report to filter by specific tech or view all representatives
 
 ## Troubleshooting
 
