@@ -1,0 +1,82 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║            PUSH TO GITHUB - MANUAL SETUP INSTRUCTIONS                ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+Your local Git repository has been initialized and committed!
+Now follow these steps to push to GitHub:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: CREATE GITHUB REPOSITORY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Go to https://github.com/new
+2. Repository settings:
+   - Name: support-session-report-generator
+   - Description: Automated support session report generator with CSV cleanup and HTML reporting
+   - Visibility: Choose Public or Private
+   - ⚠️ DO NOT initialize with README, .gitignore, or license
+3. Click "Create repository"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 2: PUSH YOUR CODE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+After creating the repository, GitHub will show you commands.
+Run these commands in this directory (C:\Beyondtrust):
+
+Option A - If you see HTTPS URL:
+────────────────────────────────
+git remote add origin https://github.com/YOUR-USERNAME/support-session-report-generator.git
+git branch -M main
+git push -u origin main
+
+Option B - If you see SSH URL:
+──────────────────────────────
+git remote add origin git@github.com:YOUR-USERNAME/support-session-report-generator.git
+git branch -M main
+git push -u origin main
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+QUICK COMMANDS (Copy these after creating the repo)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Replace YOUR-USERNAME with your actual GitHub username
+git remote add origin https://github.com/YOUR-USERNAME/support-session-report-generator.git
+git branch -M main
+git push -u origin main
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+WHAT'S INCLUDED IN THIS REPOSITORY:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ auto_generate_report.py     - Main Python script
+✓ process_support_report.bat  - Drag-and-drop batch file
+✓ README.md                    - Project documentation
+✓ QUICKSTART.txt               - Quick reference guide
+✓ .gitignore                   - Git ignore rules
+
+Note: CSV files, HTML reports, and the template file are excluded
+from the repository (they're in .gitignore).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+TROUBLESHOOTING:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If you get authentication errors:
+1. Make sure you're logged into GitHub
+2. For HTTPS: You may need a Personal Access Token
+   - Go to: Settings > Developer settings > Personal access tokens
+   - Create a token with "repo" permissions
+   - Use the token as your password when pushing
+
+For SSH: Set up SSH keys
+- Follow: https://docs.github.com/en/authentication/connecting-to-github-with-ssh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Need help? Let me know and I can guide you through any step!
