@@ -1,0 +1,89 @@
+Subject: API Support Request - Need Endpoint for Retrieving Historical Support Session Data
+
+Dear BeyondTrust Support Team,
+
+We are working to automate our support session reporting process and need assistance identifying the correct API endpoint to retrieve historical session data programmatically.
+
+CUSTOMER INFORMATION:
+- Company: Zengar Institute Inc
+- BeyondTrust Instance: zengarinst.beyondtrustcloud.com (Cloud)
+- Product: Remote Support
+- API Version: 1.25.0
+
+CURRENT API CONFIGURATION:
+Our API account has the following permissions enabled:
+- Command API: Full Access
+- Reporting API: Allow Access to Support Session Reports and Recordings
+- Configuration API: Allow Access
+
+OAuth 2.0 authentication is functioning correctly, and we can successfully access:
+✓ Configuration API endpoints (/api/config/v1/user, /api/config/v1/team, etc.)
+✓ Command API actions (check_health, get_api_info, get_appliances, get_connected_clients)
+
+ISSUE:
+Despite having "Reporting API" permissions enabled (perm_reporting_support = 1), we cannot locate any API endpoint that returns historical support session data. We need to programmatically retrieve session information that is currently only accessible via manual CSV download from the web UI.
+
+WHAT WE NEED:
+Documentation or guidance on the correct API method to retrieve historical support session data with the following parameters:
+- Date range (start_date and end_date)
+- Session details (representative name, session duration, customer information, timestamps, etc.)
+- Ability to export in CSV, JSON, or XML format
+
+TROUBLESHOOTING ALREADY COMPLETED:
+
+1. Command API Testing
+   Tested numerous action names including:
+   - get_sessions, list_sessions, get_session_report, get_session_summary
+   - get_support_sessions, query_sessions, session_report
+   - generate_report, get_reports
+
+   Result: All return "Invalid action" error
+
+2. Reporting API Endpoint Testing
+   Attempted the following endpoint paths (all return 404):
+   - /api/reporting/v1/support-sessions
+   - /api/reporting/v1/sessions
+   - /api/reporting/support-sessions
+   - /api/reporting/sessions
+   - /reporting/v1/support-sessions
+   - /reporting/support-sessions
+
+3. Direct CSV Download URL Testing
+   Tested authenticated HTTP requests to potential CSV export URLs:
+   - /appliance/reports.ns?controller=support_sessions&action=download
+   - /reporting/sessions/export
+   - /api/reporting/sessions/export
+
+   Result: All return 404 or "Document Not Found"
+
+API PERMISSIONS VERIFICATION:
+We confirmed via get_api_info that the following permissions are active:
+- perm_command: full_access
+- perm_reporting_support: 1
+- perm_reporting_archive: 1
+- perm_configuration: 1
+
+SPECIFIC QUESTIONS:
+
+1. Does the BeyondTrust Cloud platform support programmatic access to historical support session data?
+
+2. If yes, what is the correct Command API action or REST API endpoint to retrieve this data?
+
+3. If a Reporting API exists, what are the correct endpoint paths and required parameters?
+
+4. If programmatic access is not available, could you confirm that manual CSV download from the web UI is the only supported method?
+
+USE CASE:
+We need to automatically retrieve support session data on a daily/monthly basis for internal reporting and analytics. The current manual CSV download process from the web UI is time-consuming and not suitable for automation.
+
+DOCUMENTATION REVIEWED:
+- BeyondTrust Remote Support API Guide (https://docs.beyondtrust.com/rs/reference/api-guide)
+- Configuration API OpenAPI Specification (bt-rs-configuration.openapi.yaml)
+- Command API documentation (https://docs.beyondtrust.com/rs/reference/command-api)
+
+We would greatly appreciate any guidance or documentation you can provide on accessing historical session data programmatically via your API.
+
+Thank you for your assistance.
+
+
+

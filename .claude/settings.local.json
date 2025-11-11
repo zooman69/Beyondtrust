@@ -4,7 +4,17 @@
       "Bash(python:*)",
       "Bash(start http://localhost:8000/Daily-Support-Performance-Report-2025-11-07.html)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(rm:*)",
+      "Bash(pip install:*)",
+      "Bash(schtasks /Create /TN \"BeyondTrustDailyReport5AM\" /TR \"python \"\"Y:\\Coding\\Beyondtrust\\daily_report_automation.py\"\"\" /SC DAILY /ST 05:00 /RL HIGHEST /F:*)",
+      "Bash(tasklist:*)",
+      "Bash(cmd /c SETUP_5AM_AUTOMATION.bat)",
+      "Bash(schtasks /Create /TN \"BeyondTrustDailyReport5AM\" /TR \"python \"\"Y:\\Coding\\Beyondtrust\\daily_report_automation.py\"\"\" /SC WEEKLY /D MON,TUE,WED,THU,FRI /ST 05:00 /RL HIGHEST /F)",
+      "Bash(cmd //c 'schtasks /Create /TN \"\"BeyondTrustDailyReport5AM\"\" /TR \"\"python \\\"\"Y:\\Coding\\Beyondtrust\\daily_report_automation.py\\\"\"\"\" /SC WEEKLY /D MON,TUE,WED,THU,FRI /ST 05:00 /RL HIGHEST /F')",
+      "Bash(git config:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nAdd fully automated BeyondTrust daily report system\n\nThis update adds complete automation for downloading and generating\nBeyondTrust support session reports with zero user interaction.\n\nNew features:\n- Browser automation to download reports from BeyondTrust (Selenium)\n- Scheduled task setup for Monday-Friday at 5:00 AM\n- Downloads yesterday''s report automatically (no 2FA required)\n- Desktop notifications when reports are ready\n- Complete orchestration of download → clean → generate → notify workflow\n\nFiles added:\n- auto_download_report.py: Selenium-based BeyondTrust report downloader\n- daily_report_automation.py: Main orchestration script\n- setup_5am_task.py: Scheduled task creation script\n- SETUP_5AM_AUTOMATION.bat: One-click installer for Windows\n- SETUP_5AM_MONDAY_TO_FRIDAY.bat: Alternative setup script\n- .env.example: Template for storing credentials\n\nUpdated:\n- README.md: Added automation documentation and setup instructions\n\nSecurity:\n- Credentials stored in .env file (not committed to repo)\n- .env.example provided as template\n- Supports both 2FA and non-2FA accounts\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push)"
     ],
     "deny": [],
     "ask": []
