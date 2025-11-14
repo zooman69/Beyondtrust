@@ -1,8 +1,11 @@
 """
 One-Click Daily Report Runner (Simple Version)
 ===============================================
-Processes the most recent Support-sessions CSV from your Downloads folder
-for the previous business day.
+Generates a daily report from a BeyondTrust Support-sessions CSV file.
+
+Usage:
+  1. Drag & Drop: Drag any CSV file onto this script to process it
+  2. Auto-detect: Run without arguments to auto-find yesterday's CSV in Downloads
 
 No browser automation - assumes you've already downloaded the CSV or will
 remind you to download it if not found.
@@ -61,40 +64,64 @@ def main():
     print("=" * 70)
     print()
 
-    # Get previous business day
-    target_date = get_previous_business_day()
-    date_str = target_date.strftime("%Y-%m-%d")
-    day_name = target_date.strftime("%A, %B %d, %Y")
+    # Check if a CSV file was dragged onto the script
+    if len(sys.argv) > 1:
+        csv_file = Path(sys.argv[1])
 
-    print(f"Report date: {day_name}")
-    print(f"Date: {date_str}")
-    print()
+        # Verify the file exists
+        if not csv_file.exists():
+            print(f"✗ ERROR: File not found: {csv_file}")
+            print()
+            input("Press Enter to exit...")
+            sys.exit(1)
 
-    downloads_dir = Path.home() / "Downloads"
+        # Verify it's a CSV file
+        if not csv_file.suffix.lower() == '.csv':
+            print(f"✗ ERROR: Not a CSV file: {csv_file}")
+            print()
+            input("Press Enter to exit...")
+            sys.exit(1)
 
-    # Look for recent CSV file
-    print(f"Looking for CSV file in: {downloads_dir}")
-    csv_file = find_recent_csv(downloads_dir, target_date)
-
-    if not csv_file:
+        print(f"✓ Using CSV file: {csv_file.name}")
+        print(f"  Location: {csv_file.parent}")
+        print(f"  Modified: {datetime.fromtimestamp(csv_file.stat().st_mtime).strftime('%Y-%m-%d %H:%M:%S')}")
         print()
-        print("⚠️  NO RECENT CSV FILE FOUND")
-        print("=" * 70)
-        print()
-        print("Please download the report manually:")
-        print()
-        print("1. Go to: https://zengarinst.beyondtrustcloud.com")
-        print("2. Navigate to Reports > Support Sessions")
-        print(f"3. Select date: {date_str}")
-        print("4. Download the CSV to your Downloads folder")
-        print("5. Run this script again")
-        print()
-        input("Press Enter to exit...")
-        sys.exit(1)
+    else:
+        # No file provided - use auto-detection mode
+        # Get previous business day
+        target_date = get_previous_business_day()
+        date_str = target_date.strftime("%Y-%m-%d")
+        day_name = target_date.strftime("%A, %B %d, %Y")
 
-    print(f"✓ Found CSV: {csv_file.name}")
-    print(f"  Modified: {datetime.fromtimestamp(csv_file.stat().st_mtime).strftime('%Y-%m-%d %H:%M:%S')}")
-    print()
+        print(f"Report date: {day_name}")
+        print(f"Date: {date_str}")
+        print()
+
+        downloads_dir = Path.home() / "Downloads"
+
+        # Look for recent CSV file
+        print(f"Looking for CSV file in: {downloads_dir}")
+        csv_file = find_recent_csv(downloads_dir, target_date)
+
+        if not csv_file:
+            print()
+            print("⚠️  NO RECENT CSV FILE FOUND")
+            print("=" * 70)
+            print()
+            print("Please download the report manually:")
+            print()
+            print("1. Go to: https://zengarinst.beyondtrustcloud.com")
+            print("2. Navigate to Reports > Support Sessions")
+            print(f"3. Select date: {date_str}")
+            print("4. Download the CSV to your Downloads folder")
+            print("5. Run this script again")
+            print()
+            input("Press Enter to exit...")
+            sys.exit(1)
+
+        print(f"✓ Found CSV: {csv_file.name}")
+        print(f"  Modified: {datetime.fromtimestamp(csv_file.stat().st_mtime).strftime('%Y-%m-%d %H:%M:%S')}")
+        print()
 
     # Generate the report
     print("=" * 70)
